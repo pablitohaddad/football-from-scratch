@@ -3,6 +3,7 @@ package com.pablitohaddad.footbalfromscratch.web.controller;
 import com.pablitohaddad.footbalfromscratch.entity.Team;
 import com.pablitohaddad.footbalfromscratch.service.TeamService;
 import jakarta.validation.Valid;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -24,5 +25,11 @@ public class TeamController {
         Team team = teamService.createTeam(newTeam);
         return new ResponseEntity<>(team, HttpStatus.CREATED);
     }
-    
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Team> getById(@PathVariable Long id){
+        Team team = teamService.getById(id);
+        return new ResponseEntity<>(team, HttpStatus.OK);
+    }
+
 }

@@ -3,20 +3,15 @@ package com.pablitohaddad.footbalfromscratch.service;
 import com.pablitohaddad.footbalfromscratch.entity.Team;
 import com.pablitohaddad.footbalfromscratch.repository.TeamRepository;
 import jakarta.persistence.EntityNotFoundException;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@RequiredArgsConstructor
 public class TeamService {
 
     private final TeamRepository teamRepository;
-
-    @Autowired
-    public TeamService(TeamRepository teamRepository) {
-        this.teamRepository = teamRepository;
-    }
 
     public Team createTeam(Team newTeam) {
         return teamRepository.save(newTeam);
@@ -26,5 +21,17 @@ public class TeamService {
         return teamRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException(String.format("Id = %s not exist", id))
         );
+    }
+    @Transactional
+    public void atualizarTrofeus(Long id, Integer newQuantityTrophies) {
+        Team team = getById(id);
+        team.setQuantityTrophies(newQuantityTrophies);
+    }
+
+    @Transactional
+    public void atualizarIdade(Long id, Integer age) {
+        Team team = getById(id);
+        team.setAge(age);
+
     }
 }

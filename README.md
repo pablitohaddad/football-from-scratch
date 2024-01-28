@@ -1,23 +1,23 @@
 # Football From Scratch
  
-Bem-vindo ao football from scratch, desenvolvida em Spring Boot. Esta API fornece endpoints para criação de times e gerenciamento deles.
+Welcome to Football From Scratch, developed in Spring Boot. This API provides endpoints for creating teams and managing them.
  
-## Requisitos
+## Requiriments
  
 - Java 17 
-- Banco de dados MySQL 
+- MySQL database 
  
-## Configuração
+## Configuration
  
-1. Clone o repositório:
+1. Clone the repository:
  
 ```bash
 git clone https://https://github.com/pablitohaddad/football-from-scratch
 ```
  
-2. Configure o banco de dados no arquivo `application.properties`.
+2. Configure the database in the `application.properties` file.
  
-3. Execute a aplicação:
+3. Execute the aplication:
  
 ```bash
 mvn spring-boot:run
@@ -25,13 +25,13 @@ mvn spring-boot:run
  
 A aplicação estará disponível em http://localhost:8080/footbalfromscratch.html
  
-## Endpoints da API
+## API Endpoints
  
 ### `Post /teams` 
  
-Cria os times. [Finnality end-point]
+Create teams
  
-**Exemplo de resposta:**
+**Exemple response:**
 ```json
 {
     "name": "São Paulo",
@@ -44,9 +44,9 @@ Cria os times. [Finnality end-point]
 ```
 ### `GET /teams/{id}` 
  
-Traz o time por id.
+Get the team by id
  
-**Exemplo de resposta:**
+**Exemple response:**
 ```json
 {
     "id": 1,
@@ -57,9 +57,9 @@ Traz o time por id.
 ```
 ### `PATCH /teams/trophies/{id}` 
  
-Atualiza a quantidade de trofeus do time por id.
+Update the team's quantity trophies by id
  
-**Exemplo de resposta:**
+**Exemple response:**
 ```json
 {
     "quantityTrophies": 40
@@ -67,9 +67,9 @@ Atualiza a quantidade de trofeus do time por id.
 ```
 ### `PATCH /teams/age/{id}` 
  
-Atualiza a idade do time do time por id.
+Update the team's age by id
  
-**Exemplo de resposta:**
+**Exemple response:**
 ```json
 {
     "age": 98
@@ -77,9 +77,9 @@ Atualiza a idade do time do time por id.
 ```
  
 
-### Tratamento de Exceções
+### Exception Handling
 
-A football from scratch pode gerar diferentes códigos de resposta HTTP em caso de exceções. Aqui estão algumas situações que podem ocorrer:
+Football From Scratch can generate different HTTP response codes in case of exceptions. Here are some possible situations:
 
 ```json
 {
@@ -100,11 +100,11 @@ A football from scratch pode gerar diferentes códigos de resposta HTTP em caso 
 
 ```
 
-### Importantes
+### Important
 ```json
 {
 
-"Certifique-se que o time tenha idade e quantidade de títulos positiva ou nula (0)"
+"Ensure that the team has a positive or null (0)"
 
 }
 ```

@@ -1,41 +1,110 @@
-# Football Teams Management 🚀
+# Football From Scratch
+ 
+Bem-vindo ao football from scratch, desenvolvida em Spring Boot. Esta API fornece endpoints para criação de times e gerenciamento deles.
+ 
+## Requisitos
+ 
+- Java 17 
+- Banco de dados MySQL 
+ 
+## Configuração
+ 
+1. Clone o repositório:
+ 
+```bash
+git clone https://https://github.com/pablitohaddad/football-from-scratch
+```
+ 
+2. Configure o banco de dados no arquivo `application.properties`.
+ 
+3. Execute a aplicação:
+ 
+```bash
+mvn spring-boot:run
+```
+ 
+A aplicação estará disponível em http://localhost:8080/footbalfromscratch.html
+ 
+## Endpoints da API
+ 
+### `Post /teams` 
+ 
+Cria os times. [Finnality end-point]
+ 
+**Exemplo de resposta:**
+```json
+{
+    "name": "São Paulo",
+    "country": "Brazil",
+    "city": "São Paulo",
+    "age": 94,
+    "quantityTrophies": 37,
+    "surname" : "Soberano"
+}
+```
+### `GET /teams/{id}` 
+ 
+Traz o time por id.
+ 
+**Exemplo de resposta:**
+```json
+{
+    "id": 1,
+    "name": "São Paulo",
+    "surname" : "Soberano",
+    "quantityTrophies": 37
+}
+```
+### `PATCH /teams/trophies/{id}` 
+ 
+Atualiza a quantidade de trofeus do time por id.
+ 
+**Exemplo de resposta:**
+```json
+{
+    "quantityTrophies": 40
+}
+```
+### `PATCH /teams/age/{id}` 
+ 
+Atualiza a idade do time do time por id.
+ 
+**Exemplo de resposta:**
+```json
+{
+    "age": 98
+}
+```
+ 
 
-Welcome to my football teams management project! ⚽ Here, I'm diving into the exciting world of Spring Boot, exploring its wonders to create something that reflects my passion for football. 🥅
+### Tratamento de Exceções
 
-## About the Project
+A football from scratch pode gerar diferentes códigos de resposta HTTP em caso de exceções. Aqui estão algumas situações que podem ocorrer:
 
-This project aims to manage vital information about football teams. From charismatic names to the trophies won, we're delving into the thrilling universe of football through technology.
+```json
+{
+  "error": "400 Bad Request",
+  "message": "The request contains invalid data."
+}
 
-## Tools and Technologies
+{
+  "error": "404 Not Found",
+  "message": "The team with the specified ID was not found."
+}
 
-- **Spring Boot Starter Data JPA:** Exploring the power of data persistence in a simple and efficient way.
-- **H2 Database and MySQL:** Using these databases to store and retrieve valuable information.
-- **Lombok:** Simplifying development with magical annotations and reducing code verbosity.
-- **Implemented Tests:** Committed to ensuring robustness with tests for each functionality.
+{
+  "error": "500 Internal Server Error",
+  "message": "An internal server error occurred. Check the logs for more details."
+}
 
-## Why Football?
 
-Football is more than a sport for me; it's a passion that transcends the field. This project is a tribute to the beauty of the game, capturing essential data that makes the heart of a true fan beat faster.
+```
 
-## Project Structure
+### Importantes
+```json
+{
 
-- **Entity (`Team`):** Representing the essence of a team, with details such as name, country, city, age, and number of trophies.
-- **Repository (`TeamRepository`):** Facilitating interaction with the database.
-- **Service (`TeamService`):** Orchestrating business logic to create extraordinary teams.
-- **Controller (`TeamController`):** Exposing REST endpoints for interactions with the API.
+"Certifique-se que o time tenha idade e quantidade de títulos positiva ou nula (0)"
 
-## Running the Project
-
-1. **Clone this repository:**
-
-   ```bash
-   git clone https://your-git-repository/here
-   cd football-teams-management
-2. **Open the project in your favorite IDE and run it.**
-3.  **Access http://localhost:8080 to explore the API.**
-
-## Contributions
-Feel free to contribute! Open issues or send pull requests to make this project even more amazing. Together, let's create something that celebrates our passion for football! 🌟
-Let's score a goal in this journey! ⚽🚀
-
-If you need any further adjustments or have additional requests, let me know!
+}
+```

@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.pablitohaddad</groupId>
-	<artifactId>footbal-from-scratch</artifactId>
+	<artifactId>football-from-scratch</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>footbal-from-scratch</name>
+	<name>football-from-scratch</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>

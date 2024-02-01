@@ -19,6 +19,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/teams")
 @RequiredArgsConstructor
@@ -49,6 +51,13 @@ public class TeamController {
     public ResponseEntity<TeamResponseDto> getById(@PathVariable Long id){
         TeamResponseDto team = teamService.getById(id);
         return ResponseEntity.status(HttpStatus.OK).body(team);
+    }
+    @Operation(summary = "Get all teams",
+            description = "You will see all the teams in our database here.")
+    @GetMapping
+    public ResponseEntity<List<TeamResponseDto>> getAll(){
+        List<TeamResponseDto> teams = teamService.getAllTeams();
+        return ResponseEntity.ok(teams);
     }
     @Operation(summary = "Update the team's datas",
             description = "Got it! If any team wins a championship, please provide the details, and I'll update accordingly.")

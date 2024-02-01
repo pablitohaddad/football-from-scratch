@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class TeamMapper {
 
     public static TeamResponseDto toDto(Team team){
@@ -25,5 +28,9 @@ public class TeamMapper {
         mapper.getConfiguration().setSkipNullEnabled(true); // pula campos nulos
         mapper.map(updateDTO, team);
         return team;
+    }
+
+    public static List<TeamResponseDto> toListDto(List<Team> teams) {
+        return teams.stream().map(TeamMapper::toDto).collect(Collectors.toList());
     }
 }

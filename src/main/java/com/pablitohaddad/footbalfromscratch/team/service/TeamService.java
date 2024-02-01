@@ -14,6 +14,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class TeamService {
@@ -50,5 +52,8 @@ public class TeamService {
         return TeamMapper.toDto(team);
 
     }
-
+    @Transactional(readOnly = true)
+    public List<TeamResponseDto> getAllTeams() {
+        return TeamMapper.toListDto(teamRepository.findAll());
+    }
 }

@@ -1,4 +1,4 @@
-package com.pablitohaddad.footbalfromscratch.web.dto;
+package com.pablitohaddad.footbalfromscratch.team.dto;
 
 import lombok.*;
 
@@ -9,5 +9,6 @@ public class TeamResponseDto {
     private String name;
     private String surname;
     private Integer quantityTrophies;
+    private Integer age;
 
 }

@@ -1,4 +1,4 @@
-package com.pablitohaddad.footbalfromscratch.web.dto;
+package com.pablitohaddad.footbalfromscratch.team.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;

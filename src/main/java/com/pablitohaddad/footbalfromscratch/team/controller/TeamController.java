@@ -1,12 +1,13 @@
-package com.pablitohaddad.footbalfromscratch.web.controller;
+package com.pablitohaddad.footbalfromscratch.team.controller;
 
-import com.pablitohaddad.footbalfromscratch.entity.Team;
-import com.pablitohaddad.footbalfromscratch.service.TeamService;
+import com.pablitohaddad.footbalfromscratch.team.dto.TeamUpdateDto;
+import com.pablitohaddad.footbalfromscratch.team.entity.Team;
+import com.pablitohaddad.footbalfromscratch.team.service.TeamService;
 
-import com.pablitohaddad.footbalfromscratch.web.dto.TeamCreateDto;
-import com.pablitohaddad.footbalfromscratch.web.dto.TeamResponseDto;
-import com.pablitohaddad.footbalfromscratch.web.dto.mapper.TeamMapper;
-import com.pablitohaddad.footbalfromscratch.web.exception.ErrorMessage;
+import com.pablitohaddad.footbalfromscratch.team.dto.TeamCreateDto;
+import com.pablitohaddad.footbalfromscratch.team.dto.TeamResponseDto;
+import com.pablitohaddad.footbalfromscratch.team.dto.mapper.TeamMapper;
+import com.pablitohaddad.footbalfromscratch.handler.ErrorMessage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -25,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 public class TeamController {
 
     private final TeamService teamService;
-    private final TeamMapper teamMapper;
+
 
     @Operation(summary = "Create a new team", description = "Creates a new football team with the provided information",
             responses = {
@@ -38,32 +39,22 @@ public class TeamController {
             })
     @PostMapping
     public ResponseEntity<TeamResponseDto> createTeam(@Valid @RequestBody TeamCreateDto dto) {
-        Team team = teamMapper.toDto(dto);
-        Team createdTeam = teamService.createTeam(team);
-        TeamResponseDto teamResponseDto = teamMapper.covertToResponseDto(createdTeam);
-        return new ResponseEntity<>(teamResponseDto, HttpStatus.CREATED);
+        TeamResponseDto team = teamService.createTeam(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(team);
     }
-
 
     @Operation(summary = "Get a existing team by ID",
             description = "Descriptions of a football team based on their ID")
     @GetMapping("/{id}")
-    public ResponseEntity<Team> getById(@PathVariable Long id){
-        Team team = teamService.getById(id);
-        return new ResponseEntity<>(team, HttpStatus.OK);
+    public ResponseEntity<TeamResponseDto> getById(@PathVariable Long id){
+        TeamResponseDto team = teamService.getById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(team);
     }
-    @Operation(summary = "Update the team's trophies by id",
+    @Operation(summary = "Update the team's datas",
             description = "Got it! If any team wins a championship, please provide the details, and I'll update accordingly.")
-    @PatchMapping("/trophies/{id}")
-    public ResponseEntity<Void> updateTrophiesById(@PathVariable Long id, @RequestBody Team team) {
-        teamService.atualizarTrofeus(id, team.getQuantityTrophies());
-        return ResponseEntity.noContent().build();
-    }
-    @Operation(summary = "Update the team's age by ID",
-            description = "Congratulations to the anniversary club. Update it here!")
-    @PatchMapping("/age/{id}")
-    public ResponseEntity<Void> updateAgeById(@PathVariable Long id, @RequestBody Team team){
-        teamService.atualizarIdade(id, team.getAge());
-        return ResponseEntity.noContent().build();
+    @PutMapping("/{id}")
+    public ResponseEntity<TeamResponseDto> updateTeam(@PathVariable("id") Long id, @Valid @RequestBody TeamUpdateDto teamDto) {
+        TeamResponseDto team = teamService.updateTeam(teamDto, id);
+        return ResponseEntity.ok(team);
     }
 }

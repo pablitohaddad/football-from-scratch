@@ -1,4 +1,4 @@
-package com.pablitohaddad.footbalfromscratch.entity;
+package com.pablitohaddad.footbalfromscratch.team.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.io.Serializable;
+
 @Entity
 @Setter
 @Getter
@@ -16,7 +18,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @NoArgsConstructor
 @Table(name = "teams")
 @EntityListeners(AuditingEntityListener.class)
-public class Team {
+public class Team implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

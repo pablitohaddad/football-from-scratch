@@ -32,11 +32,11 @@ public class TeamController {
 
     @Operation(summary = "Create a new team", description = "Creates a new football team with the provided information",
             responses = {
-                    @ApiResponse(responseCode = "201", description = "Recurso criado com sucesso",
+                    @ApiResponse(responseCode = "201", description = "Resource created successfully",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = TeamResponseDto.class))),
-                    @ApiResponse(responseCode = "409", description = "Recurso criado com sucesso",
+                    @ApiResponse(responseCode = "409", description = "Team already registered in the system",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
-                    @ApiResponse(responseCode = "422", description = "Recurso criado com sucesso",
+                    @ApiResponse(responseCode = "422", description = "Resource not processed due to invalid input data",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
             })
     @PostMapping
@@ -45,25 +45,56 @@ public class TeamController {
         return ResponseEntity.status(HttpStatus.CREATED).body(team);
     }
 
-    @Operation(summary = "Get a existing team by ID",
-            description = "Descriptions of a football team based on their ID")
+    @Operation(summary = "Get a existing team by ID", description = "Descriptions of a football team based on their ID",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Resource is ok",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = TeamResponseDto.class))),
+                    @ApiResponse(responseCode = "404", description = "Team not found",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+                    @ApiResponse(responseCode = "400", description = "Resource not processed due to invalid input data",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+            })
     @GetMapping("/{id}")
     public ResponseEntity<TeamResponseDto> getById(@PathVariable Long id){
         TeamResponseDto team = teamService.getById(id);
         return ResponseEntity.status(HttpStatus.OK).body(team);
     }
-    @Operation(summary = "Get all teams",
-            description = "You will see all the teams in our database here.")
+    @Operation(summary = "Get all teams", description = "You will see all the teams in our database here.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Resource is ok",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = TeamResponseDto.class))),
+                    @ApiResponse(responseCode = "404", description = "Team not found",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+                    @ApiResponse(responseCode = "400", description = "Resource not processed due to invalid input data",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+            })
     @GetMapping
     public ResponseEntity<List<TeamResponseDto>> getAll(){
         List<TeamResponseDto> teams = teamService.getAllTeams();
         return ResponseEntity.ok(teams);
     }
-    @Operation(summary = "Update the team's datas",
-            description = "Got it! If any team wins a championship, please provide the details, and I'll update accordingly.")
+    @Operation(summary = "Update the team's datas", description = "Got it! If any team wins a championship, please provide the details, and I'll update accordingly.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "The resource worked successfully.",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = TeamResponseDto.class))),
+                    @ApiResponse(responseCode = "400", description = "Resource not processed due to invalid input data",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+            })
     @PutMapping("/{id}")
     public ResponseEntity<TeamResponseDto> updateTeam(@PathVariable("id") Long id, @Valid @RequestBody TeamUpdateDto teamDto) {
         TeamResponseDto team = teamService.updateTeam(teamDto, id);
         return ResponseEntity.ok(team);
+    }
+    @Operation(summary = "Delete team by id", description = "You will be able to remove a team from our database.",
+            responses = {
+                    @ApiResponse(responseCode = "204", description = "The resource worked successfully.",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = TeamResponseDto.class))),
+                    @ApiResponse(responseCode = "404", description = "Team not found",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+            })
+    @DeleteMapping("/{id}")
+    public void deleteTeam(Long id) {
+        teamService.deleteTeam(id);
+        ResponseEntity.status(HttpStatus.NO_CONTENT);
     }
 }

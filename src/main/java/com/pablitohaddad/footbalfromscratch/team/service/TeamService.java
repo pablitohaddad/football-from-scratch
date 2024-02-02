@@ -22,7 +22,6 @@ public class TeamService {
 
     private final TeamRepository teamRepository;
 
-
     @Transactional
     public TeamResponseDto createTeam(TeamCreateDto newTeam) {
         try{
@@ -45,7 +44,7 @@ public class TeamService {
         Team existing = teamRepository.findByName(teamUpdate.getName());
         if (existing != null && !existing.getId().equals(team.getId()))
             throw new TeamNameUniqueViolationException(
-                    String.format("Product with name %s already exists", teamUpdate.getName())
+                    String.format("Team with name %s already exists", teamUpdate.getName())
             );
         TeamMapper.updateByDto(teamUpdate, team);
         teamRepository.save(team);
@@ -55,5 +54,9 @@ public class TeamService {
     @Transactional(readOnly = true)
     public List<TeamResponseDto> getAllTeams() {
         return TeamMapper.toListDto(teamRepository.findAll());
+    }
+
+    public void deleteTeam(Long id) {
+        teamRepository.deleteById(id);
     }
 }
